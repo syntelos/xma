@@ -242,17 +242,15 @@ public class XAddress
             else
                 return this.logon.equals(that.logon);
         }
-        else if (null != this.logon && null != that.logon){
+        else if (this.logon.equals(that.logon)){
 
-            if (this.logon.equals(that.logon)){
-
-                if (null != this.resource && null != that.resource)
-                    return this.resourceKind.equals(that.resourceKind);
-                else
-                    return true;
-            }
+            if (null != this.resource && null != that.resource)
+                return this.resourceKind.equals(that.resourceKind);
+            else
+                return true;
         }
-        return false;
+        else
+            return false;
     }
     public int compareTo(XAddress that){
         if (this == that)
