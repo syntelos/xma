@@ -183,7 +183,7 @@ public class XAddress
             }
             /*
              */
-            StringBuilder strbuf = new StringBuilder();
+            final StringBuilder strbuf = new StringBuilder();
             strbuf.append(this.identifier);
 
             if (null != this.host){
