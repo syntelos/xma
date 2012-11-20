@@ -49,11 +49,26 @@ public class XAddress
 
 
     /**
-     * Require input equal to or greater than
+     * Ordered address components
      */
     public enum Require {
-        Identifier, Logon, Full;
+        /**
+         * Require input having no less than identifier
+         */
+        Identifier, 
+        /**
+         * Require input having no less than identifier and host
+         * (logon)
+         */
+        Logon, 
+        /**
+         * Require input having no less than identifier, host and
+         * resource (logon + resource)
+         */
+        Full;
     }
+
+
     /**
      * Require input equal to or greater than identifier
      */
@@ -94,10 +109,15 @@ public class XAddress
 
 
     /**
-     * Disallow substrings 
-     * 
      * @param string A part or whole XMPP address
-     * @param require Input requirement
+     */
+    public XAddress(String string){
+        this(string,XAddress.Require.Identifier);
+    }
+    /**
+     * @param string A part or whole XMPP address, bounded by a
+     * component list length requirement
+     * @param require Input components extent requirement
      */
     public XAddress(String string, XAddress.Require require){
         super();
