@@ -38,11 +38,34 @@ package xma;
  * <code>identifier@host/resource</code>.  Additional validation may
  * be applied by subclasses. </p>
  * 
+ * <h3>Identity</h3>
+ * 
+ * <p> The equals method tests logon or identifier components, but not
+ * the resource component.  The intent is to aid the construction of
+ * rosters with a test that supports the external logic required for
+ * roster management.  See <code>vector/xs</code>.
+ * 
+ * <p> The comparison method tests the shared subset of components
+ * from full to logon or identifier.  The intent is to support list
+ * sorting, where the information in the list is employed. </p>
+ * 
+ * <p> The hash code and char sequence (string) methods employ all
+ * existing information. </p>
+ * 
+ * <h3>Multiple resources</h3>
+ * 
+ * <p> The XMPP example under <code>vector/xs</code> has multiple
+ * resources for a logon, while the XS example does not. </p>
+ * 
+ * 
+ * 
+ * @see http://code.google.com/p/java-vector/wiki/XS
  * @author jdp
  */
 public class XAddress
     extends java.lang.Object
-    implements java.io.Serializable,
+    implements java.lang.CharSequence,
+               java.io.Serializable,
                java.lang.Comparable<XAddress>
 {
     public final static long serialVersionUID = 1L;
@@ -210,6 +233,38 @@ public class XAddress
     }
 
 
+    public int length(){
+        if (null != this.full)
+            return this.full.length();
+        else if (null != this.logon)
+            return this.logon.length();
+        else
+            return this.identifier.length();
+    }
+    public char charAt(int index){
+        if (null != this.full)
+            return this.full.charAt(index);
+        else if (null != this.logon)
+            return this.logon.charAt(index);
+        else
+            return this.identifier.charAt(index);
+    }
+    public CharSequence subSequence(int start, int end){
+        if (null != this.full)
+            return this.full.subSequence(start,end);
+        else if (null != this.logon)
+            return this.logon.subSequence(start,end);
+        else
+            return this.identifier.subSequence(start,end);
+    }
+    public int hashCode(){
+        if (null != this.full)
+            return this.full.hashCode();
+        else if (null != this.logon)
+            return this.logon.hashCode();
+        else
+            return this.identifier.hashCode();
+    }
     public String toString(){
         if (null != this.full)
             return this.full;
